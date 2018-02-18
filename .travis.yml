@@ -1,0 +1,13 @@
+language: c
+before_script:
+  - git clone https://github.com/asdf-vm/asdf.git asdf
+  - . asdf/asdf.sh
+script:
+  - asdf plugin-add tflint https://github.com/RykHawthorn/asdf-tflint.git
+  - asdf list-all tflint
+  - asdf install tflint 0.5.4
+  - asdf global tflint 0.5.4
+  - tflint --version
+os:
+  - linux
+  - osx
