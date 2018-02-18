@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# The MIT License (MIT)
+
+# Copyright (c) 2017 LibreLabs
+# Copyright (c) 2018 Patrik Hagedorn
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+set -euo pipefail
+
+[ -z "${ASDF_INSTALL_TYPE+x}" ] && echo "ASDF_INSTALL_TYPE is required" && exit 1
+[ -z "${ASDF_INSTALL_VERSION+x}" ] && echo "ASDF_INSTALL_VERSION is required" && exit 1
+[ -z "${ASDF_INSTALL_PATH+x}" ] && echo "ASDF_INSTALL_PATH is required" && exit 1
+
+install() {
+  local repo_url="https://github.com/wata727/tflint"
+  local bin_name="tflint"
+  local install_type=$1
+  [ "${install_type}" != "version" ] && echo "install type, ${install_type}, is not supported" && exit 1
+
+  local version=$2
+  local install_path=$3
+
+  local bin_install_path="${install_path}/bin"
+  local bin_path="${bin_install_path}/${bin_name}"
+
+  local platform
+  [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
+  local arch
+  [ "x86_64" = "$(uname -m)" ] && arch="amd64" || arch="386"
+
+  local download_zip="${bin_name}_${platform}_${arch}.zip"
+  local download_url="${repo_url}/releases/download/v${version}/${download_zip}"
+  local temp_file="/tmp/${download_zip}"
+
+  mkdir -p "${bin_install_path}"
+
+  echo "Downloading ${bin_name} from ${download_url}"
+  curl -sSL "${download_url}" -o "${temp_file}"
+  unzip "${temp_file}" -d "${bin_install_path}"
+  rm "${temp_file}"
+  chmod +x "${bin_path}"
+}
+
+install "${ASDF_INSTALL_TYPE}" "${ASDF_INSTALL_VERSION}" "${ASDF_INSTALL_PATH}"
