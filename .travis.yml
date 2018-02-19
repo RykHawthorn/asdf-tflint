@@ -8,6 +8,7 @@ script:
   - asdf install tflint 0.5.4
   - asdf global tflint 0.5.4
   - tflint --version
+  - asdf plugin-test tflint https://github.com/RykHawthorn/asdf-tflint.git
 os:
   - linux
   - osx
