@@ -38,7 +38,7 @@ sort_linux(){
 }
 
 sort_darwin(){
-  tail -r | tr '\n' ' '
+  tail -f | tr '\n' ' '
 }
 
 list_all(){
