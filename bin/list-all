@@ -28,7 +28,7 @@ tags_list="$(curl -s $tags_path)"
 
 get_version(){
   # grep -oE "name\": \".{1,15}\"," | sed 's/name\": \"v//;s/\",//;'
-  grep -oE "tag-name\">v.{1,15}</" | sed 's|tag-name\">v||;s|</||;'
+  grep -oE "=\"/wata727/tflint/archive/v.{1,15}.zip\"" | sed 's|=\"/wata727/tflint/archive/v||;s|.zip\"||;'
 }
 
 [ "Linux" = "$(uname)" ] && sort="sort_linux" || sort="sort_darwin"

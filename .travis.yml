@@ -5,10 +5,7 @@ before_script:
 script:
   - asdf plugin-add tflint https://github.com/RykHawthorn/asdf-tflint.git
   - asdf list-all tflint
-  - asdf install tflint 0.5.4
-  - asdf global tflint 0.5.4
-  - tflint --version
-  - asdf plugin-test tflint https://github.com/RykHawthorn/asdf-tflint.git
+  - asdf plugin-test tflint ./ 'tflint --version'
 os:
   - linux
   - osx
