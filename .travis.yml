@@ -3,9 +3,7 @@ before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
 script:
-  - asdf plugin-add tflint https://github.com/RykHawthorn/asdf-tflint.git
-  - asdf list-all tflint
-  - asdf plugin-test tflint ./ 'tflint --version'
+  - asdf plugin-test tflint $TRAVIS_BUILD_DIR 'tflint --version'
 os:
   - linux
   - osx

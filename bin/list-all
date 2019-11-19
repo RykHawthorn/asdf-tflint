@@ -22,13 +22,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# tags_path=https://api.github.com/repos/wata727/tflint/tags
-tags_path=https://github.com/wata727/tflint/tags
+tags_path=https://github.com/terraform-linters/tflint/tags
 tags_list="$(curl -s $tags_path)"
 
 get_version(){
   # grep -oE "name\": \".{1,15}\"," | sed 's/name\": \"v//;s/\",//;'
-  grep -oE "=\"/wata727/tflint/archive/v.{1,15}.zip\"" | sed 's|=\"/wata727/tflint/archive/v||;s|.zip\"||;'
+  grep -oE "=\"/terraform-linters/tflint/archive/v.{1,15}.zip\"" | sed 's|=\"/terraform-linters/tflint/archive/v||;s|.zip\"||;'
 }
 
 [ "Linux" = "$(uname)" ] && sort="sort_linux" || sort="sort_darwin"

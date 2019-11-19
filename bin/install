@@ -30,7 +30,7 @@ set -euo pipefail
 [ -z "${ASDF_INSTALL_PATH+x}" ] && echo "ASDF_INSTALL_PATH is required" && exit 1
 
 install() {
-  local repo_url="https://github.com/wata727/tflint"
+  local repo_url="https://github.com/terraform-linters/tflint"
   local bin_name="tflint"
   local install_type=$1
   [ "${install_type}" != "version" ] && echo "install type, ${install_type}, is not supported" && exit 1
